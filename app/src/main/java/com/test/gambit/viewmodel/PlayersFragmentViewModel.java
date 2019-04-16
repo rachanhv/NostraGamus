@@ -6,6 +6,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.test.gambit.model.Players;
 import com.test.gambit.rest.AppErrorResponse;
@@ -16,11 +18,18 @@ import com.test.gambit.utils.Global;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class PlayersFragmentViewModel extends ViewModel {
+public class PlayersFragmentViewModel extends AndroidViewModel {
 
     //this is the data that we will fetch asynchronously
     private MutableLiveData<List<Players>>  playerList;
+
+    public PlayersFragmentViewModel(@NonNull Application application) {
+        super(application);
+
+    }
 
 
     //we will call this method to get the data
@@ -39,11 +48,23 @@ public class PlayersFragmentViewModel extends ViewModel {
     //This method is using Retrofit to get the JSON data from URL
     private void loadPlayers() {
 
-        Call<List<Players>> call = Global.apiService.getPlayers();
-        call.enqueue(new RestResponse(new AppRestCallback<List<Players>>() {
+        Call<Players> call = Global.apiService.getPlayers();
+        call.enqueue(new Callback<Players>() {
+            @Override
+            public void onResponse(Call<Players> call, Response<Players> response) {
+                Log.i("PlayersFragment",response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<Players> call, Throwable t) {
+
+            }
+        });
+      /*  call.enqueue(new RestResponse(new AppRestCallback<List<Players>>() {
             @Override
             public void onAppSuccessResponse(Call<List<Players>> call, @NonNull List<Players> response) {
                 playerList.setValue(response);
+                Log.i("PlayersFragment",response.toString());
             }
 
             @Override
@@ -65,7 +86,7 @@ public class PlayersFragmentViewModel extends ViewModel {
             public void onServerFailed(Call<List<Players>> call, String message) {
 
             }
-        }));
+        }));*/
 
 
     }

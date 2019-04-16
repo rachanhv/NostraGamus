@@ -1,9 +1,11 @@
-package com.test.gambit;
+package com.test.gambit.ui;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.test.gambit.R;
 
 public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
 

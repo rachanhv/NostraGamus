@@ -1,4 +1,4 @@
-package com.test.gambit;
+package com.test.gambit.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.test.gambit.R;
 import com.test.gambit.model.Players;
 
 import java.util.ArrayList;
