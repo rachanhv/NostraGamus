@@ -30,4 +30,5 @@ ext{
     constraintLibVersion = "1.1.3"
     archLifecycleVersion = "1.1.1"
     butterKnifeVersion = "8.4.0"
+    retrofitVersions = "2.5.0"
 }
