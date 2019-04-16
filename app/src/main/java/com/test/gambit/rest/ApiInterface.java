@@ -1,16 +1,18 @@
 package com.test.gambit.rest;
 
-import android.arch.lifecycle.LiveData;
 
 import com.test.gambit.model.Players;
 
+import java.util.List;
+
+import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ApiInterface {
 
     //Players
     @GET("players")
-    LiveData<Players> getPlayers();
-    //dfsadfs
+    Call<List<Players>> getPlayers();
+
 
 }
