@@ -41,4 +41,10 @@ dependencies {
     //Butterknife dependency injuction
     implementation 'com.jakewharton:butterknife:' + rootProject.butterKnifeVersion //10.1.0
     annotationProcessor 'com.jakewharton:butterknife-compiler:' + rootProject.butterKnifeVersion
+
+    // Retrofit & OkHttp
+    implementation 'com.squareup.retrofit2:retrofit:' + rootProject.retrofitVersions //2.5.0
+    // JSON Converter
+    implementation 'com.squareup.retrofit2:converter-gson:' + rootProject.retrofitVersions // 2.5.0
+
 }
