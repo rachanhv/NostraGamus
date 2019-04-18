@@ -37,6 +37,7 @@ dependencies {
 
     //Recyclerview
     implementation 'com.android.support:recyclerview-v7:' + rootProject.supportLibVersion
+    implementation 'com.android.support:cardview-v7:' + rootProject.supportLibVersion
 
     //// ViewModel and LiveData
     implementation 'android.arch.lifecycle:extensions:' + rootProject.archLifecycleVersion
@@ -51,5 +52,8 @@ dependencies {
     // JSON Converter
     implementation 'com.squareup.retrofit2:converter-gson:' + rootProject.retrofitVersions // 2.5.0
     implementation 'com.squareup.okhttp3:okhttp:3.14.1'
+
+    //load images
+    implementation 'com.squareup.picasso:picasso:'+ rootProject.picassoVersions //2.5.2
 
 }

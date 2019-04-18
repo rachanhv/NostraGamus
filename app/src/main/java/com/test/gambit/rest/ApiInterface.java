@@ -19,5 +19,4 @@ public interface ApiInterface {
     @GET("teams/14")
     Call<PlayerTeam> getTeam();
 
-
 }

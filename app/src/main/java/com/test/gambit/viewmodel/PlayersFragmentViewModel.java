@@ -6,9 +6,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.Toast;
 
+import com.test.gambit.model.PlayerData;
 import com.test.gambit.model.Players;
 import com.test.gambit.rest.AppErrorResponse;
 import com.test.gambit.rest.AppRestCallback;
@@ -21,24 +20,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PlayersFragmentViewModel extends AndroidViewModel {
+public class PlayersFragmentViewModel extends ViewModel {
 
     //this is the data that we will fetch asynchronously
-    private MutableLiveData<List<Players>>  playerList;
-
-    public PlayersFragmentViewModel(@NonNull Application application) {
-        super(application);
-
-    }
-
+    private MutableLiveData<List<PlayerData>> playerList;
+    Players players;
 
     //we will call this method to get the data
-    public LiveData<List<Players>> getPlayers() {
+    public LiveData<List<PlayerData>> getPlayers() {
         //if the list is null
         if (playerList == null) {
-            playerList = new MutableLiveData<List<Players>>();
+            playerList = new MutableLiveData<List<PlayerData>>();
             //we will load it asynchronously from server in this method
-            loadPlayers();
+            loadPlayersData();
         }
 
         //finally we will return the list
@@ -46,51 +40,36 @@ public class PlayersFragmentViewModel extends AndroidViewModel {
     }
 
     //This method is using Retrofit to get the JSON data from URL
-    private void loadPlayers() {
+    private void loadPlayersData() {
 
         Call<Players> call = Global.apiService.getPlayers();
-        call.enqueue(new Callback<Players>() {
+        call.enqueue(new RestResponse(new AppRestCallback<Players>() {
             @Override
-            public void onResponse(Call<Players> call, Response<Players> response) {
-                Log.i("PlayersFragment",response.toString());
+            public void onAppSuccessResponse(Call<Players> call, @NonNull Players response) {
+                players = new Players();
+                players = response;
+                playerList.postValue(players.getData());
             }
 
             @Override
-            public void onFailure(Call<Players> call, Throwable t) {
-
-            }
-        });
-      /*  call.enqueue(new RestResponse(new AppRestCallback<List<Players>>() {
-            @Override
-            public void onAppSuccessResponse(Call<List<Players>> call, @NonNull List<Players> response) {
-                playerList.setValue(response);
-                Log.i("PlayersFragment",response.toString());
-            }
-
-            @Override
-            public void onAppFailureResponse(Call<List<Players>> call, AppErrorResponse response) {
+            public void onAppFailureResponse(Call<Players> call, AppErrorResponse response) {
 
             }
 
             @Override
-            public void onAppFailureResponseWithErrorMessage(Call<List<Players>> call, @NonNull List<Players> response) {
+            public void onAppFailureResponseWithErrorMessage(Call<Players> call, @NonNull Players response) {
 
             }
 
             @Override
-            public void onAppNullResponse(Call<List<Players>> call, int response) {
+            public void onAppNullResponse(Call<Players> call, int response) {
 
             }
 
             @Override
-            public void onServerFailed(Call<List<Players>> call, String message) {
+            public void onServerFailed(Call<Players> call, String message) {
 
             }
-        }));*/
-
-
+        }));
     }
-
-
-
 }

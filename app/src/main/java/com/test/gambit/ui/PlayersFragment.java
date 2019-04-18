@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.test.gambit.R;
+import com.test.gambit.model.PlayerData;
+import com.test.gambit.model.PlayerTeam;
 import com.test.gambit.model.Players;
 import com.test.gambit.utils.Global;
 import com.test.gambit.viewmodel.PlayersFragmentViewModel;
@@ -40,7 +42,8 @@ public class PlayersFragment extends Fragment {
     PlayersAdapter adapter;
     @BindView(R.id.myRecyclerView)
     RecyclerView recyclerView;
-    List<Players> playersList = new ArrayList<>();
+    Players playersList;
+    List<PlayerData> playerDataList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,18 +52,7 @@ public class PlayersFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_players, container, false);
         ButterKnife.bind(this, view);
 
-        Call<Players> call = Global.apiService.getPlayers();
-        call.enqueue(new Callback<Players>() {
-            @Override
-            public void onResponse(Call<Players> call, Response<Players> response) {
-                Log.i("PlayersFragment",response.toString());
-            }
 
-            @Override
-            public void onFailure(Call<Players> call, Throwable t) {
-                Log.i("PlayersFragment","");
-            }
-        });
         return view;
     }
 
@@ -69,17 +61,33 @@ public class PlayersFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         PlayersFragmentViewModel model = ViewModelProviders.of(this).get(PlayersFragmentViewModel.class);
-        model.getPlayers().observe(this, new Observer<List<Players>>() {
+        model.getPlayers().observe(this, new Observer<List<PlayerData>>() {
             @Override
-            public void onChanged(@Nullable List<Players> players) {
-                playersList = players;
-                Toast.makeText(getActivity(), playersList.size(), Toast.LENGTH_SHORT).show();
-                setRecyclerview(playersList);
+            public void onChanged(@Nullable List<PlayerData> playerData) {
+                playerDataList = playerData;
+
+                Toast.makeText(getActivity(), String.valueOf(playerDataList.size()), Toast.LENGTH_SHORT).show();
+                setRecyclerview(playerDataList);
             }
         });
+
+        /*Call<PlayerTeam> call = Global.apiService.getTeam();
+        call.enqueue(new Callback<PlayerTeam>() {
+            @Override
+            public void onResponse(Call<PlayerTeam> call, Response<PlayerTeam> response) {
+                PlayerTeam playerTeam = new PlayerTeam();
+                playerTeam = response.body();
+                Log.i("PlayersFragment", playerTeam.getName() + " ");
+            }
+
+            @Override
+            public void onFailure(Call<PlayerTeam> call, Throwable t) {
+                Log.i("PlayersFragment", "");
+            }
+        });*/
     }
 
-    public void setRecyclerview(List<Players> list) {
+    public void setRecyclerview(List<PlayerData> list) {
         adapter = new PlayersAdapter(getActivity(), list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);

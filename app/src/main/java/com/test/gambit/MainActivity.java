@@ -47,18 +47,19 @@ public class MainActivity extends AppCompatActivity {
         // Give the TabLayout the ViewPager
         tabLayout.setupWithViewPager(pager);
 
-        Retrofit retrofit = new Retrofit.Builder()
+        /*Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiClient.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        ApiInterface api = retrofit.create(ApiInterface.class);*/
 
-        ApiInterface api = retrofit.create(ApiInterface.class);
-
-        Call<PlayerTeam> call = api.getTeam();
+       /* Call<PlayerTeam> call = Global.apiService.getTeam();
         call.enqueue(new Callback<PlayerTeam>() {
             @Override
             public void onResponse(Call<PlayerTeam> call, Response<PlayerTeam> response) {
-                Log.i("PlayersFragment",response.toString());
+                PlayerTeam playerTeam = new PlayerTeam();
+                playerTeam = response.body();
+                Log.i("PlayersFragment",playerTeam.getName());
                 Toast.makeText(MainActivity.this,"",Toast.LENGTH_SHORT).show();
             }
 
@@ -66,6 +67,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<PlayerTeam> call, Throwable t) {
                 Log.i("PlayersFragment","");
             }
-        });
+        });*/
     }
 }

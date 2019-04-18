@@ -1,15 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/player_name"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="dafadfasdf"
-        android:textColor="@color/colorAccent"
-        tools:ignore="MissingConstraints" />
-</android.support.constraint.ConstraintLayout>
+        android:clickable="false"
+        app:cardCornerRadius="@dimen/five"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/profile"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/profile"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/player_first_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="First Name"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/player_last_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Last Name"
+                        android:textColor="@color/colorAccent" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/team_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="First Name"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/team_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="Last Name"
+                        android:textColor="@color/colorAccent" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Position - " />
+
+                <TextView
+                    android:id="@+id/position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="F" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="*" />
+
+                <TextView
+                    android:id="@+id/team_full_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Los Angeles Lakers" />
+
+                <TextView
+                    android:id="@+id/team_conference"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="West" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text=" / " />
+
+                <TextView
+                    android:id="@+id/team_division"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Specific" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
