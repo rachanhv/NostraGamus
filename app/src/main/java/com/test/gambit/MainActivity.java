@@ -19,8 +19,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements TabLayoutUpdateListener {
 
-    private View playersCount, gamesCount;
-    private TextView playersCountView, gamesCountView;
+    private View playerView, gamesView;
+    private TextView playerCountView, gameCountView;
     ActivityMainBinding activityMainBinding;
 
     @Override
@@ -43,25 +43,21 @@ public class MainActivity extends AppCompatActivity implements TabLayoutUpdateLi
         activityMainBinding.viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(activityMainBinding.styleTab));
         activityMainBinding.styleTab.setupWithViewPager(activityMainBinding.viewpager);
 
-        playersCount = LayoutInflater.from(this).inflate(R.layout.player_count_view, null);
-        playersCountView = playersCount.findViewById(R.id.count_player_text_view);
-        // playersCountView.setTextColor(getResources().getColor(R.color.colorBlue));
+        playerView = LayoutInflater.from(this).inflate(R.layout.player_count_view, null);
+        playerCountView = playerView.findViewById(R.id.count_player_text_view);
 
-        gamesCount = LayoutInflater.from(this).inflate(R.layout.games_count_view, null);
-        gamesCountView = gamesCount.findViewById(R.id.count_games_text_view);
-        //gamesCountView.setTextColor(getResources().getColor(R.color.colorBlue));
+        gamesView = LayoutInflater.from(this).inflate(R.layout.games_count_view, null);
+        gameCountView = gamesView.findViewById(R.id.count_games_text_view);
     }
 
     @Override
     public void updateTabText(int position, String text) {
         if (position == 0) {
-            playersCountView.setText(text);
-           // activityMainBinding.styleTab.getTabAt(position).setText(R.string.players_tab).setCustomView(playersCountView);
-            Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(position)).setText(R.string.players_tab)).setCustomView(playersCountView);
+            playerCountView.setText(text);
+            Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(position)).setText(R.string.players_tab)).setCustomView(playerView);
         } else if (position == 1) {
-            gamesCountView.setText(text);
-            //activityMainBinding.styleTab.getTabAt(position).setText(R.string.games_tab).setCustomView(gamesCountView);
-            Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(position)).setText(R.string.games_tab)).setCustomView(gamesCountView);
+            gameCountView.setText(text);
+            Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(position)).setText(R.string.games_tab)).setCustomView(gamesView);
         }
     }
 }
