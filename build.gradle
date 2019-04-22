@@ -32,6 +32,10 @@ ext{
     butterKnifeVersion = "8.4.0"
     retrofitVersions = "2.5.0"
     retrofitInterceptor = "3.9.1"
+    okhttpVersion = "3.14.1"
     picassoVersions = "2.5.2"
     screenSizeVersion = "1.0.6"
+    rxjavaVersion = "2.2.2"
+    rxandroidVersion = "2.0.2"
+    rxjavaadapterVersion = "2.3.0"
 }
