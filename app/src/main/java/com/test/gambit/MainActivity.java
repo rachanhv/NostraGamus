@@ -1,39 +1,41 @@
 package com.test.gambit;
 
+import android.databinding.DataBindingUtil;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
-import com.test.gambit.model.PlayerTeam;
-import com.test.gambit.model.Players;
-import com.test.gambit.rest.ApiClient;
-import com.test.gambit.rest.ApiInterface;
+import com.test.gambit.databinding.ActivityMainBinding;
 import com.test.gambit.ui.FragmentPagerAdapter;
-import com.test.gambit.utils.Global;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.sliding_tabs)
+    @BindView(R.id.style_tab)
     TabLayout tabLayout;
 
     @BindView(R.id.viewpager)
     ViewPager pager;
+    private View playersCount, gamesCount;
+    private TextView playersCountView, gamesCountView;
+    ActivityMainBinding activityMainBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        activityMainBinding.getRoot();
+
+        //activityMainBinding.styleTab.addTab(activityMainBinding.styleTab.newTab().setText("Players"));
+       // activityMainBinding.styleTab.addTab(activityMainBinding.styleTab.newTab().setText("Games"));
 
         //Bind Butterknife to the view
         ButterKnife.bind(this);
@@ -43,30 +45,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the adapter onto the view pager
         pager.setAdapter(adapter);
-
         // Give the TabLayout the ViewPager
         tabLayout.setupWithViewPager(pager);
 
-        /*Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiClient.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiInterface api = retrofit.create(ApiInterface.class);*/
+        /*playersCount = LayoutInflater.from(this).inflate(R.layout.player_count_view, null);
+        playersCountView = playersCount.findViewById(R.id.count_player_text_view);
 
-       /* Call<PlayerTeam> call = Global.apiService.getTeam();
-        call.enqueue(new Callback<PlayerTeam>() {
-            @Override
-            public void onResponse(Call<PlayerTeam> call, Response<PlayerTeam> response) {
-                PlayerTeam playerTeam = new PlayerTeam();
-                playerTeam = response.body();
-                Log.i("PlayersFragment",playerTeam.getName());
-                Toast.makeText(MainActivity.this,"",Toast.LENGTH_SHORT).show();
-            }
+        gamesCount = LayoutInflater.from(this).inflate(R.layout.games_count_view,null);
+        gamesCountView = gamesCount.findViewById(R.id.count_games_text_view);
 
-            @Override
-            public void onFailure(Call<PlayerTeam> call, Throwable t) {
-                Log.i("PlayersFragment","");
-            }
-        });*/
+        playersCountView.setText("10");
+        Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(0)).setText(R.string.players_tab)).setCustomView(playersCountView);
+        gamesCountView.setText("5");
+        Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(1)).setText(R.string.games_tab)).setCustomView(gamesCountView);*/
     }
 }
