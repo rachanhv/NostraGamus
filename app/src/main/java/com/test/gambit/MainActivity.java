@@ -1,29 +1,24 @@
 package com.test.gambit;
 
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.test.gambit.databinding.ActivityMainBinding;
-import com.test.gambit.ui.FragmentPagerAdapter;
+import com.test.gambit.ui.FragmentTabPagerAdapter;
+import com.test.gambit.utils.load.TabLayoutUpdateListener;
 
 import java.util.Objects;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+public class MainActivity extends AppCompatActivity implements TabLayoutUpdateListener {
 
-public class MainActivity extends AppCompatActivity {
-
-    @BindView(R.id.style_tab)
-    TabLayout tabLayout;
-
-    @BindView(R.id.viewpager)
-    ViewPager pager;
     private View playersCount, gamesCount;
     private TextView playersCountView, gamesCountView;
     ActivityMainBinding activityMainBinding;
@@ -31,32 +26,42 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         activityMainBinding.getRoot();
 
-        //activityMainBinding.styleTab.addTab(activityMainBinding.styleTab.newTab().setText("Players"));
-       // activityMainBinding.styleTab.addTab(activityMainBinding.styleTab.newTab().setText("Games"));
+        activityMainBinding.styleTab.addTab(activityMainBinding.styleTab.newTab().setText(R.string.players_tab));
+        activityMainBinding.styleTab.addTab(activityMainBinding.styleTab.newTab().setText(R.string.games_tab));
 
-        //Bind Butterknife to the view
-        ButterKnife.bind(this);
+        FragmentTabPagerAdapter adapter = new FragmentTabPagerAdapter(getSupportFragmentManager());
+        activityMainBinding.viewpager.setAdapter(adapter);
+        activityMainBinding.viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(activityMainBinding.styleTab));
+        activityMainBinding.styleTab.setupWithViewPager(activityMainBinding.viewpager);
 
-        // Create an adapter that knows which fragment should be shown on each page
-        FragmentPagerAdapter adapter = new FragmentPagerAdapter(this, getSupportFragmentManager());
-
-        // Set the adapter onto the view pager
-        pager.setAdapter(adapter);
-        // Give the TabLayout the ViewPager
-        tabLayout.setupWithViewPager(pager);
-
-        /*playersCount = LayoutInflater.from(this).inflate(R.layout.player_count_view, null);
+        playersCount = LayoutInflater.from(this).inflate(R.layout.player_count_view, null);
         playersCountView = playersCount.findViewById(R.id.count_player_text_view);
+        // playersCountView.setTextColor(getResources().getColor(R.color.colorBlue));
 
-        gamesCount = LayoutInflater.from(this).inflate(R.layout.games_count_view,null);
+        gamesCount = LayoutInflater.from(this).inflate(R.layout.games_count_view, null);
         gamesCountView = gamesCount.findViewById(R.id.count_games_text_view);
+        //gamesCountView.setTextColor(getResources().getColor(R.color.colorBlue));
+    }
 
-        playersCountView.setText("10");
-        Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(0)).setText(R.string.players_tab)).setCustomView(playersCountView);
-        gamesCountView.setText("5");
-        Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(1)).setText(R.string.games_tab)).setCustomView(gamesCountView);*/
+    @Override
+    public void updateTabText(int position, String text) {
+        if (position == 0) {
+            playersCountView.setText(text);
+           // activityMainBinding.styleTab.getTabAt(position).setText(R.string.players_tab).setCustomView(playersCountView);
+            Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(position)).setText(R.string.players_tab)).setCustomView(playersCountView);
+        } else if (position == 1) {
+            gamesCountView.setText(text);
+            //activityMainBinding.styleTab.getTabAt(position).setText(R.string.games_tab).setCustomView(gamesCountView);
+            Objects.requireNonNull(Objects.requireNonNull(activityMainBinding.styleTab.getTabAt(position)).setText(R.string.games_tab)).setCustomView(gamesCountView);
+        }
     }
 }

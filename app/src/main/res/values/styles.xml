@@ -8,8 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="textAllCaps">false</item>
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchIcon">@drawable/search_vector</item>
+        <item name="searchHintIcon">@drawable/search_vector</item>
+        <item name="queryHint">Type to search</item>
+        <item name="android:textSize">@dimen/_6ssp</item>
+        <item name="closeIcon">@drawable/close_vector</item>
+
+
     </style>
 
 </resources>

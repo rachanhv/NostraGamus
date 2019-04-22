@@ -8,26 +8,26 @@
         android:id="@+id/games_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_alignParentTop="true"
-        android:textSize="@dimen/_12ssp"
-        android:text="@string/games_tab"
+        android:layout_centerInParent="true"
         android:gravity="center"
-        android:textColor="@color/app_blue"/>
+        android:text="@string/games_tab"
+        android:textColor="@color/colorBlue"
+        android:textSize="@dimen/_12ssp" />
 
     <TextView
         android:id="@+id/count_games_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/count_border"
-        android:text="0"
-        android:gravity="center"
-        android:textSize="@dimen/_6ssp"
         android:layout_margin="@dimen/_4sdp"
-        android:paddingLeft="@dimen/_6sdp"
-        android:paddingRight="@dimen/_6sdp"
-        android:paddingTop="@dimen/_2sdp"
-        android:paddingBottom="@dimen/_2sdp"
         android:layout_toRightOf="@id/games_text_view"
-        android:textColor="@color/colorWhite"/>
+        android:background="@drawable/count_border"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_6sdp"
+        android:paddingTop="@dimen/_2sdp"
+        android:paddingRight="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_2sdp"
+        android:text="0"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_6ssp" />
 </RelativeLayout>
