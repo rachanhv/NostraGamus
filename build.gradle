@@ -31,4 +31,7 @@ ext{
     archLifecycleVersion = "1.1.1"
     butterKnifeVersion = "8.4.0"
     retrofitVersions = "2.5.0"
+    retrofitInterceptor = "3.9.1"
+    picassoVersions = "2.5.2"
+    screenSizeVersion = "1.0.6"
 }
